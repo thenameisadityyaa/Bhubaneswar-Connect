@@ -1,0 +1,25 @@
+/* src/components/Footer.css */
+
+/* Desktop Styles */
+.footer {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 1.5rem 1rem;
+  margin-top: auto;
+}
+
+.footer p {
+  font-size: 0.9rem;
+}
+
+/* --- Mobile Styles for Footer --- */
+@media (max-width: 768px) {
+  .footer {
+    padding: 1rem; /* Reduced padding for mobile */
+  }
+
+  .footer p {
+    font-size: 0.8rem;
+  }
+}

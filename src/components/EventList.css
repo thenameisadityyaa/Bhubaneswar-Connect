@@ -1,0 +1,38 @@
+/* src/components/EventList.css */
+
+/* Desktop Styles */
+.event-list {
+  padding: 0 2rem;
+  max-width: 1200px;
+  margin: 0 auto 2rem auto;
+  flex-grow: 1;
+}
+
+.event-list h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+    color: #333;
+}
+
+.event-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+/* --- Mobile Styles for Event List --- */
+@media (max-width: 768px) {
+  .event-list {
+    padding: 0 1rem; /* Reduce horizontal padding for mobile */
+  }
+
+  .event-list h2 {
+      font-size: 1.8rem; /* Slightly smaller heading */
+  }
+
+  .event-grid {
+    grid-template-columns: 1fr; /* Make cards stack in a single column */
+    gap: 1rem; /* Slightly less space between stacked cards */
+  }
+}

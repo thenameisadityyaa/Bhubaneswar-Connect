@@ -1,0 +1,27 @@
+/* src/index.css */
+/* Basic CSS Reset/Normalization */
+*, *::before, *::after {
+  box-sizing: border-box; /* Most important for responsive design */
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif; /* A clear, common font */
+  line-height: 1.6;
+  background-color: #f4f4f4; /* Light background for the app */
+  color: #333;
+}
+
+/* Basic styling for headings */
+h1, h2, h3, h4, h5, h6 {
+  margin-bottom: 0.5em;
+  line-height: 1.2;
+}
+
+/* App container for basic centering/width */
+#root, .App {
+    min-height: 100vh; /* Ensures app takes full height */
+    display: flex;
+    flex-direction: column; /* Stacks children vertically */
+}

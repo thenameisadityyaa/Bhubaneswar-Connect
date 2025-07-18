@@ -1,0 +1,61 @@
+/* src/components/EventCard.css */
+
+/* Desktop Styles */
+.event-card {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Subtle shadow */
+  text-align: center;
+}
+
+.event-card-image {
+  width: 100%; /* Make image fill the card width */
+  height: auto; /* Fixed height for consistency */
+  object-fit: contain; /* Ensures image covers the area without distortion */
+  border-radius: 4px; /* Slightly rounded corners for the image */
+  margin-bottom: 1rem; /* Space below the image */
+}
+
+.event-card h3 {
+  font-size: 1.3rem;
+  margin-bottom: 0.75rem;
+  color: #333;
+}
+
+.event-card p {
+  font-size: 0.95rem;
+  color: #666;
+  margin-bottom: 0.5rem;
+}
+
+.event-card button {
+  background-color: #28a745; /* Green button */
+  color: white;
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  margin-top: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.event-card button:hover {
+  background-color: #218838;
+}
+
+/* --- Mobile Styles for Event Card --- */
+@media (max-width: 768px) {
+  .event-card {
+    padding: 1rem; /* Slightly less padding on mobile */
+  }
+
+  .event-card h3 {
+    font-size: 1.2rem;
+  }
+  .event-card p {
+    font-size: 0.9rem;
+  }
+}
