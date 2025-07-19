@@ -146,7 +146,7 @@ function AddEventModal({ onClose, onAddEvent, onUpdateEvent, initialEventData, c
               <div className="image-preview-container">
                 <img
                   src={imageUrl}
-                  alt="Image Preview"
+                  alt=""
                   className="image-preview"
                   onError={() => setImageLoadError(true)} // Set error state on image load failure
                 />
