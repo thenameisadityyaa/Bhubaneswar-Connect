@@ -8,12 +8,32 @@
   padding: 1.5rem;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Subtle shadow */
   text-align: center;
+
+  /* --- IMPORTANT: New Flexbox properties for internal layout --- */
+  display: flex;
+  flex-direction: column; /* Stack children vertically */
+  justify-content: space-between; /* Pushes action buttons to the bottom */
+  height: 100%; /* Ensure card takes full height of its grid cell */
+}
+
+/* Style for the Link wrapper if you wrapped the whole card */
+.event-card-link {
+  text-decoration: none; /* Remove underline from the link */
+  color: inherit;        /* Ensure text color is inherited, not default blue link */
+  display: block;        /* Make the link take up the full width/height of the card */
+  height: 100%;          /* Ensure the link covers the entire card, crucial for grid alignment */
+}
+
+/* Optional: Add a hover effect for the entire card when it's a link */
+.event-card-link .event-card:hover {
+    transform: translateY(-5px); /* Lift the card slightly on hover */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2); /* More pronounced shadow */
 }
 
 .event-card-image {
   width: 100%; /* Make image fill the card width */
-  height: auto; /* Fixed height for consistency */
-  object-fit: contain; /* Ensures image covers the area without distortion */
+  height: auto; /* Allow height to be determined by aspect ratio */
+  object-fit: contain; /* Ensures the entire image is visible, no cropping */
   border-radius: 4px; /* Slightly rounded corners for the image */
   margin-bottom: 1rem; /* Space below the image */
 }
@@ -30,21 +50,79 @@
   margin-bottom: 0.5rem;
 }
 
-.event-card button {
-  background-color: #28a745; /* Green button */
+/* Add a class for the description on the card to show only a snippet */
+.event-card .card-description {
+    font-size: 0.9rem;
+    color: #555;
+    margin-bottom: 0.8rem;
+    height: 3.6em; /* Limit height to 3 lines approx (based on 1.2em line-height) */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Add ellipsis for overflow */
+    line-height: 1.2em;
+    flex-grow: 1; /* Allow description to take available space */
+}
+
+
+/* Container for action buttons at the bottom of the card */
+.event-card-actions {
+    display: flex;
+    justify-content: space-around; /* Distributes buttons with space between */
+    gap: 0.5rem; /* Space between buttons */
+    margin-top: 1rem; /* Space above buttons */
+    width: 100%; /* Ensure actions take full width of card */
+}
+
+/* Style for the View Details button */
+.event-card .view-details-btn {
+  background-color: #007bff; /* Blue button, can match previous green */
   color: white;
   padding: 0.6rem 1rem;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   font-size: 0.9rem;
-  margin-top: 1rem;
+  flex-grow: 1; /* Allows button to grow and fill space */
   transition: background-color 0.3s ease;
 }
 
-.event-card button:hover {
-  background-color: #218838;
+.event-card .view-details-btn:hover {
+  background-color: #0056b3;
 }
+
+/* Style for the new Edit button */
+.event-card .edit-btn {
+  background-color: #ffc107; /* Yellow/Orange button for edit */
+  color: #333; /* Darker text for better contrast */
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  flex-grow: 1;
+  transition: background-color 0.3s ease;
+}
+
+.event-card .edit-btn:hover {
+  background-color: #e0a800;
+}
+
+/* Style for the Delete button */
+.event-card .delete-btn {
+  background-color: #dc3545; /* Red button for delete */
+  color: white;
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  flex-grow: 1; /* Allows button to grow and fill space */
+  transition: background-color 0.3s ease;
+}
+
+.event-card .delete-btn:hover {
+  background-color: #c82333;
+}
+
 
 /* --- Mobile Styles for Event Card --- */
 @media (max-width: 768px) {
@@ -57,5 +135,21 @@
   }
   .event-card p {
     font-size: 0.9rem;
+  }
+
+  .event-card .card-description {
+      font-size: 0.85rem;
+      height: 3.4em; /* Adjust height for smaller font size */
+  }
+
+  .event-card-actions {
+      flex-direction: column; /* Stack buttons vertically on small screens */
+  }
+  .event-card-actions button {
+      width: 100%; /* Make buttons full width */
+      margin-bottom: 0.5rem; /* Space between stacked buttons */
+  }
+  .event-card-actions button:last-child {
+      margin-bottom: 0; /* No margin below the last button */
   }
 }

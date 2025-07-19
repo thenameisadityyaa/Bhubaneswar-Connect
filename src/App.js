@@ -1,111 +1,194 @@
 // src/App.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 import Navbar from './components/Navbar';
 import HeroSection from './components/HeroSection';
 import EventList from './components/EventList';
 import Footer from './components/Footer';
 import AddEventModal from './components/AddEventModal';
+import EventDetailPage from './components/EventDetailPage';
+import SearchBar from './components/SearchBar';
+import CategoryFilter from './components/CategoryFilter';
+import DateFilter from './components/DateFilter';
+import SortControls from './components/SortControls';
+import Notification from './components/Notification'; // Import the new Notification component
+import useEvents from './hooks/useEvents'; // Import the custom hook
 
 function App() {
+  const { events, addEvent, deleteEvent, updateEvent } = useEvents();
+
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [showAddEventModal, setShowAddEventModal] = useState(false);
+  const [editingEvent, setEditingEvent] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [selectedDateFilter, setSelectedDateFilter] = useState('Upcoming');
+  const [sortOrder, setSortOrder] = useState('dateAsc');
 
-  const [events, setEvents] = useState([
-    {
-      id: 1,
-      title: 'Community Clean-up Drive',
-      date: '2025-07-25',
-      description: 'Join us to clean up the beautiful Ekamra Kanan park. Gloves and bags provided.',
-      location: 'Ekamra Kanan, Nayapalli',
-      imageUrl: '/images/cleanup.jpg'
-    },
-    {
-      id: 2,
-      title: 'Odia Language Workshop',
-      date: '2025-08-10',
-      description: 'A beginner-friendly workshop to learn basic conversational Odia phrases and cultural insights.',
-      location: 'Odisha State Museum',
-      imageUrl: '/images/odia-workshop.png'
-    },
-    {
-      id: 3,
-      title: 'Startup Pitch Competition',
-      date: '2025-08-15',
-      description: 'Watch budding entrepreneurs present their innovative ideas to a panel of investors and mentors.',
-      location: 'KIIT TBI',
-      imageUrl: '/images/startup.jpeg'
-    },
-    {
-      id: 4,
-      title: 'Bhubaneswar Heritage Walk',
-      date: '2025-09-01',
-      description: 'Explore the ancient temples and historical sites of Bhubaneswar with an expert guide.',
-      location: 'Lingaraj Temple Area',
-      imageUrl: '/images/heritage-walk.jpg'
-    }
-  ]);
+  // State for managing notifications
+  const [notification, setNotification] = useState(null);
+
+  // Function to show notification
+  const showNotification = (message, type = 'success') => {
+    setNotification({ message, type });
+    // Clear notification after a few seconds
+    setTimeout(() => {
+      setNotification(null);
+    }, 3000); // Notification visible for 3 seconds
+  };
 
   const toggleMobileMenu = () => {
     setShowMobileMenu(!showMobileMenu);
   };
 
   const openAddEventModal = () => {
+    setEditingEvent(null);
     setShowAddEventModal(true);
     setShowMobileMenu(false);
   };
 
-  const closeAddEventModal = () => {
+  const closeEventFormModal = () => {
     setShowAddEventModal(false);
+    setEditingEvent(null);
   };
 
-  // Function to handle adding a new event
   const handleAddEvent = (newEventData) => {
-    // Generate a unique ID for the new event
-    // For simplicity, we'll use a timestamp or a basic counter.
-    // In a real app, you might use a library like 'uuid' or get it from a backend.
-    const newId = events.length > 0 ? Math.max(...events.map(event => event.id)) + 1 : 1;
-    const eventWithId = { ...newEventData, id: newId };
-
-    // Update the events state. IMPORTANT: Always create a new array
-    // when updating state that contains arrays/objects to ensure React re-renders.
-    setEvents((prevEvents) => [...prevEvents, eventWithId]);
-
-    closeAddEventModal(); // Close modal after adding
+    addEvent(newEventData);
+    closeEventFormModal();
+    showNotification('Event added successfully!', 'success');
   };
+
+  const handleDeleteEvent = (idToDelete) => {
+    // The deleteEvent in useEvents includes the window.confirm
+    // We only show notification if the deletion proceeds
+    deleteEvent(idToDelete); // The hook handles the confirmation inside
+    showNotification('Event deleted!', 'success'); // Show notification regardless of window.confirm here.
+                                                // Ideally, deleteEvent in hook could return true/false
+                                                // or take a callback. For now, this is simpler.
+  };
+
+  const handleInitiateEdit = (eventToEdit) => {
+    setEditingEvent(eventToEdit);
+    setShowAddEventModal(true);
+    setShowMobileMenu(false);
+  };
+
+  const handleUpdateEvent = (updatedEvent) => {
+    updateEvent(updatedEvent);
+    closeEventFormModal();
+    showNotification('Event updated successfully!', 'success');
+  };
+
+  const uniqueCategories = ['All', ...new Set(events.map(event => event.category))];
+  const categoriesForModal = [...new Set(events.map(event => event.category))];
+
+
+  const filteredAndSortedEvents = [...events].filter(event => {
+    const currentDate = new Date();
+    const eventDate = new Date(event.date);
+
+    const matchesSearchTerm =
+      event.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      event.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      event.location.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      event.category.toLowerCase().includes(searchTerm.toLowerCase());
+
+    const matchesCategory =
+      selectedCategory === 'All' || event.category === selectedCategory;
+
+    const matchesDateFilter =
+      selectedDateFilter === 'All' ||
+      (selectedDateFilter === 'Upcoming' && eventDate >= currentDate) ||
+      (selectedDateFilter === 'Past' && eventDate < currentDate);
+
+    return matchesSearchTerm && matchesCategory && matchesDateFilter;
+  }).sort((a, b) => {
+    switch (sortOrder) {
+      case 'dateAsc':
+        return new Date(a.date) - new Date(b.date);
+      case 'dateDesc':
+        return new Date(b.date) - new Date(a.date);
+      case 'titleAsc':
+        return a.title.localeCompare(b.title);
+      case 'titleDesc':
+        return b.title.localeCompare(a.title);
+      default:
+        return 0;
+    }
+  });
 
   return (
-    <div className="App">
-      <Navbar
-        onToggleMobileMenu={toggleMobileMenu}
-        onOpenAddEventModal={openAddEventModal}
-      />
-      <HeroSection />
-      <main>
-        <EventList events={events} />
-      </main>
-      <Footer />
-
-      {/* Mobile Menu Logic */}
-      {showMobileMenu && (
-        <div className="mobile-menu-overlay">
-          <div className="mobile-menu-content">
-            <button onClick={toggleMobileMenu} className="close-menu-btn">X</button>
-            <ul>
-              <li><button onClick={openAddEventModal}>Add Event</button></li>
-            </ul>
-          </div>
-        </div>
-      )}
-
-      {/* Conditionally render the Add Event Modal */}
-      {showAddEventModal && (
-        <AddEventModal
-          onClose={closeAddEventModal}
-          onAddEvent={handleAddEvent} // Pass the handleAddEvent function down
+    <Router>
+      <div className="App">
+        <Navbar
+          onToggleMobileMenu={toggleMobileMenu}
+          onOpenAddEventModal={openAddEventModal}
         />
-      )}
-    </div>
+        <Routes>
+          <Route path="/" element={
+            <>
+              <HeroSection />
+              <div className="filters-container">
+                <SearchBar searchTerm={searchTerm} onSearchChange={setSearchTerm} />
+                <DateFilter
+                  selectedDateFilter={selectedDateFilter}
+                  onDateFilterChange={setSelectedDateFilter}
+                />
+              </div>
+              <CategoryFilter
+                categories={uniqueCategories}
+                selectedCategory={selectedCategory}
+                onCategoryChange={setSelectedCategory}
+              />
+              <SortControls sortOrder={sortOrder} onSortChange={setSortOrder} />
+              <main>
+                <EventList
+                  events={filteredAndSortedEvents}
+                  onDeleteEvent={handleDeleteEvent}
+                  onEditEvent={handleInitiateEdit}
+                />
+              </main>
+              <Footer />
+            </>
+          } />
+
+          <Route path="/events/:id" element={
+            <EventDetailPage
+              events={events}
+              onDeleteEvent={handleDeleteEvent}
+              onEditEvent={handleInitiateEdit}
+            />
+          } />
+        </Routes>
+
+        {showMobileMenu && (
+          <div className="mobile-menu-overlay">
+            <div className="mobile-menu-content">
+              <button onClick={toggleMobileMenu} className="close-menu-btn">X</button>
+              <ul>
+                <li><button onClick={openAddEventModal}>Add Event</button></li>
+              </ul>
+            </div>
+          </div>
+        )}
+
+        {showAddEventModal && (
+          <AddEventModal
+            onClose={closeEventFormModal}
+            onAddEvent={handleAddEvent}
+            onUpdateEvent={handleUpdateEvent}
+            initialEventData={editingEvent}
+            categories={categoriesForModal}
+          />
+        )}
+
+        {/* Render the Notification component if there's a message */}
+        {notification && (
+          <Notification message={notification.message} type={notification.type} />
+        )}
+      </div>
+    </Router>
   );
 }
 

@@ -96,3 +96,68 @@
   cursor: pointer;
   font-size: 1.1rem;
 }
+
+/* ... (App, App-logo, App-header, App-link, App-logo-spin, mobile-menu-overlay, mobile-menu-content styles remain unchanged) ... */
+
+.filters-container {
+  display: flex;
+  flex-direction: column; /* Stacks vertically on smaller screens */
+  gap: 1rem; /* Space when stacked vertically */
+  margin: 2rem auto 0;
+  max-width: 900px;
+  padding: 0 1rem;
+  box-sizing: border-box;
+}
+
+/* Responsive adjustment for filters container (now ONLY contains SearchBar and DateFilter) */
+@media (min-width: 769px) {
+  .filters-container {
+    flex-direction: row; /* Arranges horizontally on larger screens */
+    justify-content: space-between; /* Space out SearchBar and DateFilter */
+    align-items: center;
+    gap: 0; /* No gap needed, space-between handles it */
+    flex-wrap: nowrap; /* Ensure they stay on one line */
+  }
+
+  /* Search Bar Styles (within filters-container) */
+  .filters-container .search-bar-container {
+    flex: 2; /* Give more space to search bar (e.g., 2 parts) */
+    min-width: 300px; /* Absolute minimum */
+    max-width: 600px; /* Absolute maximum */
+    margin: 0; /* Reset margins */
+    box-sizing: border-box;
+  }
+
+  /* Date Filter Styles (within filters-container) */
+  .filters-container .date-filter-container {
+    flex: 1; /* Less space for date filter (e.g., 1 part) */
+    min-width: 150px; /* Absolute minimum */
+    max-width: 250px; /* Absolute maximum */
+    margin: 0; /* Reset margins */
+    box-sizing: border-box;
+  }
+
+  /*
+   * CategoryFilter is no longer inside .filters-container on desktop,
+   * so its styles from CategoryFilter.css will apply.
+   * We need a separate rule in App.css for consistent main page layout.
+   */
+}
+
+/* NEW: Style for the CategoryFilter now that it's standalone */
+/* This will ensure it's centered and has appropriate spacing */
+.category-filter-container {
+  /* This class is already on the CategoryFilter's outermost div */
+  margin: 1rem auto; /* Add vertical margin to separate it from other elements, auto-center */
+  max-width: 700px; /* Keep its width consistent with other content on the page */
+  padding: 0 1rem; /* Consistent padding */
+  box-sizing: border-box;
+  display: flex; /* Ensure its internal label and select are flexed */
+  align-items: center;
+  gap: 1rem; /* Space between label and select */
+}
+
+/* You may want to ensure the select inside category filter takes full width */
+.category-filter-container .category-select {
+    flex-grow: 1; /* Allow the select to take available space */
+}

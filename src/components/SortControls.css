@@ -1,0 +1,53 @@
+/* src/components/SortControls.css */
+.sort-controls-container {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin: 1rem auto; /* Center it below category filter, with some space */
+    max-width: 700px; /* Match width of other filters/content */
+    padding: 0 1rem; /* Consistent padding */
+    box-sizing: border-box; /* Ensure padding is included in width */
+}
+
+.sort-controls-container label {
+    font-size: 1rem;
+    color: #333;
+    white-space: nowrap; /* Prevent "Sort by:" from wrapping */
+}
+
+.sort-controls-container .sort-select {
+    padding: 0.6rem 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    outline: none; /* Remove blue outline on focus */
+    -webkit-appearance: none; /* Remove default arrow on WebKit browsers */
+    -moz-appearance: none; /* Remove default arrow on Firefox */
+    appearance: none; /* Remove default arrow */
+    /* Custom arrow for dropdown (a common practice when removing default appearance) */
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007bff%22%20d%3D%22M287%2C146.206c0%2C0.373-0.103%2C0.745-0.306%2C1.077L152.923%2C281.564c-0.665%2C0.665-1.745%2C0.665-2.41%2C0L5.306%2C147.283c-0.409-0.409-0.569-1.026-0.407-1.621c0.163-0.595%2C0.668-1.029%2C1.278-1.161c0.61-0.132%2C1.278%2C0.038%2C1.782%2C0.457L149.7%2C273.136L284.148%2C145.24c0.419-0.347%2C0.978-0.478%2C1.528-0.373c0.55%2C0.106%2C1.011%2C0.52%2C1.206%2C1.077C286.953%2C146.206%2C287%2C146.206%2C287%2C146.206z%22%2F%3E%3C%2Fsvg%3E');
+    background-repeat: no-repeat;
+    background-position: right 0.7em top 50%, 0 0;
+    background-size: 0.65em auto, 100%;
+    flex-grow: 1; /* Allow the select to grow within the container */
+    max-width: 250px; /* Limit its max width */
+}
+
+.sort-controls-container .sort-select:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .sort-controls-container {
+        flex-direction: column; /* Stack label and select vertically on small screens */
+        align-items: flex-start; /* Align to the left */
+        padding: 0 1.5rem; /* More padding on smaller screens */
+    }
+    .sort-controls-container label {
+        margin-bottom: 0.5rem;
+    }
+}

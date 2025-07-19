@@ -1,0 +1,47 @@
+/* src/components/Notification.css */
+.notification {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 15px 30px;
+    border-radius: 8px;
+    font-weight: bold;
+    color: white;
+    z-index: 10000; /* Ensure it's above everything else */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    animation: fadeInOut 3.5s forwards; /* Animation for fade in and out */
+    min-width: 250px;
+    text-align: center;
+}
+
+.notification.success {
+    background-color: #28a745; /* Green for success */
+}
+
+.notification.error {
+    background-color: #dc3545; /* Red for error */
+}
+
+/* Optional: Add a subtle info type if needed in the future */
+.notification.info {
+    background-color: #17a2b8; /* Blue for info */
+}
+
+@keyframes fadeInOut {
+    0% { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+    10% { opacity: 1; transform: translateX(-50%) translateY(0); }
+    90% { opacity: 1; transform: translateX(-50%) translateY(0); }
+    100% { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .notification {
+        width: calc(100% - 40px); /* Take more width on small screens */
+        left: 20px;
+        right: 20px;
+        transform: translateX(0); /* Remove transform for centering */
+    }
+}

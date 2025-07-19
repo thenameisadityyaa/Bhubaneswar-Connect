@@ -1,22 +1,29 @@
 // src/components/EventList.js
 import React from 'react';
 import EventCard from './EventCard';
-import './EventList.css';
+import './EventList.css'; // Make sure this is imported
 
-// EventList now accepts an 'events' prop
-function EventList({ events }) { // Destructure the events prop
-  return (
-    <section className="event-list">
-      <h2>Upcoming Events</h2>
-      <div className="event-grid">
-        {/* Use map() to render an EventCard for each event */}
-        {events.map(event => (
-          // Important: Add a unique 'key' prop when mapping over lists in React
-          // The key helps React identify which items have changed, are added, or are removed.
-          <EventCard key={event.id} event={event} />
-        ))}
+function EventList({ events, onDeleteEvent, onEditEvent }) {
+  if (events.length === 0) {
+    return (
+      <div className="no-events-found">
+        <p>No events found matching your criteria.</p>
+        <p>Try adjusting your search, filters, or add a new event!</p>
       </div>
-    </section>
+    );
+  }
+
+  return (
+    <ul className="event-list">
+      {events.map((event) => (
+        <EventCard
+          key={event.id}
+          event={event}
+          onDeleteEvent={onDeleteEvent}
+          onEditEvent={onEditEvent}
+        />
+      ))}
+    </ul>
   );
 }
 

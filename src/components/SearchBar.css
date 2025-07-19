@@ -1,0 +1,38 @@
+/* src/components/SearchBar.css */
+.search-bar-container {
+  margin: 2rem auto; /* Center it and give some vertical space */
+  max-width: 700px; /* Match your container width */
+  padding: 0 1rem; /* Some padding on sides */
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 1px solid #ddd;
+  border-radius: 25px; /* Rounded corners */
+  font-size: 1rem;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* Subtle shadow */
+  outline: none; /* Remove default outline on focus */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.search-input::placeholder {
+  color: #999;
+}
+
+.search-input:focus {
+  border-color: #007bff; /* Blue border on focus */
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25); /* Light blue glow on focus */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .search-bar-container {
+    margin: 1.5rem auto;
+    padding: 0 0.8rem;
+  }
+  .search-input {
+    font-size: 0.95rem;
+    padding: 0.7rem 0.9rem;
+  }
+}

@@ -1,0 +1,125 @@
+/* src/components/EventDetailPage.css */
+.event-detail-page-container {
+    max-width: 800px;
+    margin: 2rem auto; /* Centers the container horizontally and adds top/bottom spacing */
+    padding: 2rem;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    text-align: left; /* Aligns text content to the left within the container */
+    position: relative; /* Needed for absolute positioning children if any, otherwise standard flow */
+}
+
+.back-button {
+    background-color: #007bff;
+    color: white;
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-bottom: 1.5rem; /* Space below the button */
+    transition: background-color 0.2s ease;
+    display: inline-block; /* Allows vertical margins */
+    text-decoration: none; /* In case it's converted to an <a> tag later */
+}
+
+.back-button:hover {
+    background-color: #0056b3;
+}
+
+.event-detail-image {
+    width: 100%;
+    max-height: 400px; /* Limits the image height */
+    object-fit: cover; /* Ensures image covers the area, cropping if necessary */
+    border-radius: 8px;
+    margin-bottom: 1.5rem; /* Space below the image */
+}
+
+.event-detail-title {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 1rem;
+    text-align: center; /* Centers the title */
+}
+
+.event-detail-info {
+    font-size: 1.1rem;
+    color: #555;
+    margin-bottom: 0.5rem;
+    line-height: 1.5;
+}
+
+.event-detail-description {
+    font-size: 1.1rem;
+    color: #444;
+    line-height: 1.6;
+    margin-top: 1.5rem;
+    border-top: 1px solid #eee; /* A subtle line above description */
+    padding-top: 1.5rem; /* Space between line and description */
+}
+
+/* Styles for the action buttons container */
+.event-detail-actions {
+    display: flex; /* Makes buttons lay out horizontally */
+    justify-content: center; /* Centers the group of buttons */
+    gap: 1rem; /* Creates space between the "Edit" and "Delete" buttons */
+    margin-top: 2rem; /* Adds space above the buttons */
+}
+
+/* Common styles for both edit and delete buttons */
+.event-detail-actions .edit-button,
+.event-detail-actions .delete-button {
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.2s ease;
+}
+
+/* Specific style for the edit button */
+.event-detail-actions .edit-button {
+    background-color: #28a745; /* Green color */
+    color: white;
+}
+
+.event-detail-actions .edit-button:hover {
+    background-color: #218838;
+}
+
+/* Specific style for the delete button */
+.event-detail-actions .delete-button {
+    background-color: #dc3545; /* Red color */
+    color: white;
+}
+
+.event-detail-actions .delete-button:hover {
+    background-color: #c82333;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+    .event-detail-page-container {
+        margin: 1rem; /* Smaller margins on smaller screens */
+        padding: 1rem; /* Smaller padding */
+    }
+
+    .event-detail-title {
+        font-size: 1.8rem;
+    }
+
+    .event-detail-info,
+    .event-detail-description {
+        font-size: 1rem;
+    }
+
+    .event-detail-actions {
+        flex-direction: column; /* Stack buttons vertically on small screens */
+    }
+
+    .event-detail-actions .edit-button,
+    .event-detail-actions .delete-button {
+        width: 100%; /* Make buttons full width when stacked */
+    }
+}

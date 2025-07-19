@@ -1,0 +1,55 @@
+/* src/components/CategoryFilter.css */
+.category-filter-container {
+  margin: 1.5rem auto; /* Vertical space, slightly less than search bar */
+  max-width: 700px;
+  padding: 0 1rem;
+  display: flex; /* Align label and select nicely */
+  align-items: center;
+  gap: 1rem; /* Space between label and select */
+}
+
+.filter-label {
+  font-size: 1rem;
+  color: #333;
+  font-weight: 500;
+  white-space: nowrap; /* Prevent label from wrapping */
+}
+
+.category-select {
+  flex-grow: 1; /* Allow select to take available width */
+  padding: 0.7rem 1rem;
+  border: 1px solid #ddd;
+  border-radius: 25px; /* Rounded corners */
+  font-size: 1rem;
+  background-color: white;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  outline: none;
+  -webkit-appearance: none; /* Remove default arrow on WebKit browsers */
+  -moz-appearance: none;    /* Remove default arrow on Firefox */
+  appearance: none;         /* Remove default arrow */
+  background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23000000%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13.2-6.2H18.6c-5%200-9.3%201.8-13.2%205.5-3.9%203.7-6.2%208.7-6.2%2014.2%200%205.4%202.3%2010.5%206.2%2014.2l127%20127c3.7%203.7%208.6%205.5%2014%205.5s10.3-1.8%2014-5.5l127-127c3.9-3.7%206.2-8.7%206.2-14.2.1-5.6-2.3-10.7-6.2-14.4z%22%2F%3E%3C%2Fsvg%3E'); /* Custom arrow */
+  background-repeat: no-repeat;
+  background-position: right 0.7em top 50%, 0 0;
+  background-size: 0.65em auto;
+  padding-right: 2.5em; /* Make space for the arrow */
+}
+
+.category-select:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .category-filter-container {
+    flex-direction: column; /* Stack label and select vertically */
+    align-items: flex-start;
+    margin: 1rem auto;
+    gap: 0.5rem;
+  }
+  .category-select {
+    width: 100%; /* Make select full width when stacked */
+    font-size: 0.95rem;
+    padding: 0.6rem 0.9rem;
+  }
+}
